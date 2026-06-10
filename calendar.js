@@ -79,19 +79,21 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCalendar();
     }
 
-    function showAnalysis(event) {
+    // 분석 카드와 시세차익 계산 결과를 통합하여 보여주는 함수
+    function showIntegratedAnalysis(event) {
         if (!event.price) {
             analysisCard.style.display = 'none';
+            calcResult.style.display = 'none';
             return;
         }
 
+        // 1. 단지 상세 분석 카드 업데이트
         analysisTitle.textContent = event.title;
         analysisScore.textContent = event.score || '-';
         analysisPrice.textContent = (event.price / 10000).toFixed(1) + '억';
         analysisMarket.textContent = (event.marketPrice / 10000).toFixed(1) + '억';
         analysisProfit.textContent = ((event.marketPrice - event.price) / 10000).toFixed(1) + '억';
         
-        // Detailed fields
         analysisUnits.textContent = event.units || '-';
         analysisStructure.textContent = event.structure || '-';
         analysisCommunity.textContent = event.community || '-';
@@ -100,7 +102,31 @@ document.addEventListener('DOMContentLoaded', () => {
         analysisText.textContent = event.analysis;
 
         analysisCard.style.display = 'block';
-        analysisCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // 2. 하단 계산기 결과 섹션도 자동으로 업데이트하여 연동된 느낌 제공
+        if (calcResult) {
+            resName.textContent = event.title;
+            resRegion.textContent = '상세 분석 참조';
+            resPrice.textContent = (event.price / 10000).toFixed(1) + '억';
+            resMarket.textContent = (event.marketPrice / 10000).toFixed(1) + '억';
+            const profit = (event.marketPrice - event.price) / 10000;
+            resProfit.textContent = profit.toFixed(1) + '억';
+
+            const ratio = ((event.marketPrice - event.price) / event.price) * 100;
+            let grade = '보통';
+            let color = '#95a5a6';
+            if (ratio >= 50) { grade = '매우 높음 (S)'; color = '#e74c3c'; }
+            else if (ratio >= 30) { grade = '높음 (A)'; color = '#f39c12'; }
+            else if (ratio >= 15) { grade = '양호 (B)'; color = '#2ecc71'; }
+
+            resGrade.textContent = grade;
+            resGrade.style.backgroundColor = color;
+            naverLink.href = `https://land.naver.com/search/search.naver?query=${encodeURIComponent(event.title)}`;
+            
+            calcResult.style.display = 'flex';
+        }
+
+        analysisCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function renderCalendar() {
@@ -147,12 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 eventTag.classList.add('event-tag', event.type);
                 eventTag.innerHTML = `
                     <span>${event.title}</span>
-                    <span class="remind-me">${isReminded ? '🔔' : '🔕'}</span>
+                    <span class="remind-me" title="알림 설정">${isReminded ? '🔔' : '🔕'}</span>
                 `;
                 
                 eventTag.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    showAnalysis(event);
+                    showIntegratedAnalysis(event);
                 });
 
                 const remindBtn = eventTag.querySelector('.remind-me');

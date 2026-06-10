@@ -525,20 +525,41 @@ button:hover {
 }
 
 /* Event Tag Update */
+.calendar-day:not(.empty) {
+    cursor: default;
+}
+
 .event-tag {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: transform 0.1s ease, filter 0.1s ease;
 }
 
 .event-tag:hover {
     filter: brightness(1.1);
+    transform: translateY(-1px);
 }
 
 .remind-me {
     margin-left: 4px;
     opacity: 0.7;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.remind-me:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.calendar-controls button {
+    cursor: pointer;
+}
+
+.nav-links a, .footer-links a, .logo {
+    cursor: pointer;
 }
 
 @keyframes slideDown {
