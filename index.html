@@ -13,8 +13,12 @@
 <body>
     <header>
         <nav>
-            <div class="logo">LottoGen</div>
-            <button id="theme-toggle">다크 모드</button>
+            <a href="index.html" class="logo">LottoGen</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">번호 생성기</a>
+                <a href="calendar.html">청약 캘린더</a>
+                <button id="theme-toggle">다크 모드</button>
+            </div>
         </nav>
     </header>
 
@@ -67,46 +71,48 @@
                     <li>순식간에 생성된 번호 조합을 확인합니다.</li>
                     <li><strong>'결과 복사하기'</strong> 버튼을 눌러 번호를 안전하게 저장하세요.</li>
                 </ol>
-            </article>
-
-            <article class="content-section">
-                <h2>이 로또 생성기의 특징</h2>
-                <p>시중에는 많은 생성기가 있지만, 저희 서비스는 다음과 같은 원칙을 지킵니다.</p>
-                <ul>
-                    <li><strong>완벽한 무작위성:</strong> JavaScript의 암호학적으로 강력한 난수 생성(Crypto API) 기술을 응용하여 편향 없는 번호를 제공합니다.</li>
-                    <li><strong>개인정보 보호:</strong> 어떠한 사용자 정보도 서버에 저장하거나 요구하지 않습니다. 모든 생성 과정은 사용자의 브라우저 내에서만 이루어집니다.</li>
-                    <li><strong>빠른 속도와 직관성:</strong> 불필요한 광고나 로딩 없이 즉각적인 결과를 제공합니다.</li>
-                </ul>
             </section>
+        </article>
 
-            <article class="content-section">
-                <h2>자주 묻는 질문 (FAQ)</h2>
-                <div class="faq-item">
-                    <h3>Q: 생성된 번호로 당첨될 확률이 높나요?</h3>
-                    <p>A: 로또는 매회 독립적인 확률을 가집니다. 본 생성기는 무작위 추출을 도와줄 뿐, 당첨을 보장하지는 않습니다. 하지만 순수한 확률에 기반한 조합을 제공하므로 편향 없는 선택을 돕습니다.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Q: 서비스 이용은 무료인가요?</h3>
-                    <p>A: 네, 본 서비스는 모든 사용자에게 100% 무료로 제공됩니다. 운영비는 페이지 내의 최소한의 광고를 통해 충당됩니다.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Q: 번호 생성 알고리즘은 무엇인가요?</h3>
-                    <p>A: 웹 표준 API인 <code>Math.random()</code> 기반의 난수 추출 시스템을 사용하며, 중복 없는 6개의 숫자를 오름차순으로 정렬하여 가독성을 높였습니다.</p>
-                </div>
-            </article>
-        </main>
+        <article class="content-section">
+            <h2>이 로또 생성기의 특징</h2>
+            <p>시중에는 많은 생성기가 있지만, 저희 서비스는 다음과 같은 원칙을 지킵니다.</p>
+            <ul>
+                <li><strong>완벽한 무작위성:</strong> JavaScript의 암호학적으로 강력한 난수 생성(Crypto API) 기술을 응용하여 편향 없는 번호를 제공합니다.</li>
+                <li><strong>개인정보 보호:</strong> 어떠한 사용자 정보도 서버에 저장하거나 요구하지 않습니다. 모든 생성 과정은 사용자의 브라우저 내에서만 이루어집니다.</li>
+                <li><strong>빠른 속도와 직관성:</strong> 불필요한 광고나 로딩 없이 즉각적인 결과를 제공합니다.</li>
+            </ul>
+        </article>
 
-        <footer class="site-footer">
-            <div class="footer-content">
-                <p>&copy; 2026 LottoGen. All rights reserved.</p>
-                <nav class="footer-links">
-                    <a href="privacy.html">개인정보처리방침</a>
-                    <a href="terms.html">이용약관</a>
-                    <a href="contact.html">문의하기</a>
-                </nav>
+        <article class="content-section">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <div class="faq-item">
+                <h3>Q: 생성된 번호로 당첨될 확률이 높나요?</h3>
+                <p>A: 로또는 매회 독립적인 확률을 가집니다. 본 생성기는 무작위 추출을 도와줄 뿐, 당첨을 보장하지는 않습니다. 하지만 순수한 확률에 기반한 조합을 제공하므로 편향 없는 선택을 돕습니다.</p>
             </div>
-        </footer>
+            <div class="faq-item">
+                <h3>Q: 서비스 이용은 무료인가요?</h3>
+                <p>A: 네, 본 서비스는 모든 사용자에게 100% 무료로 제공됩니다. 운영비는 페이지 내의 최소한의 광고를 통해 충당됩니다.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Q: 번호 생성 알고리즘은 무엇인가요?</h3>
+                <p>A: 웹 표준 API인 <code>Math.random()</code> 기반의 난수 추출 시스템을 사용하며, 중복 없는 6개의 숫자를 오름차순으로 정렬하여 가독성을 높였습니다.</p>
+            </div>
+        </article>
+    </main>
 
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 LottoGen. All rights reserved.</p>
+            <nav class="footer-links">
+                <a href="privacy.html">개인정보처리방침</a>
+                <a href="terms.html">이용약관</a>
+                <a href="contact.html">문의하기</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
