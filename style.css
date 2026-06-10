@@ -305,50 +305,104 @@ button:hover {
 }
 
 /* Footer */
-.site-footer {
-    background-color: var(--footer-bg);
-    color: var(--footer-text);
-    padding: 3rem 1rem;
-    margin-top: 4rem;
-}
-
-.footer-content {
-    max-width: 1000px;
-    margin: 0 auto;
+/* Notification Banner */
+.notif-banner {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.8rem;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    margin-bottom: 1.5rem;
+    animation: slideDown 0.5s ease-out;
 }
 
-.footer-links {
-    display: flex;
-    gap: 1.5rem;
-}
+.notif-content { display: flex; align-items: center; gap: 0.8rem; }
+.notif-icon { font-size: 1.5rem; }
+.notif-banner p { margin: 0; font-weight: 600; font-size: 0.95rem; }
 
-.footer-links a {
-    color: var(--footer-text);
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.footer-links a:hover {
-    text-decoration: underline;
-}
-
-/* Static Pages */
-.static-page h1 { text-align: center; margin-bottom: 3rem; }
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 2rem;
+#enable-notif-btn {
+    background-color: white;
     color: var(--primary-color);
-    text-decoration: none;
-    font-weight: bold;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+}
+
+/* Alarmer Form */
+.alarmer-section {
+    text-align: center;
+}
+
+.alarmer-form {
+    max-width: 500px;
+    margin: 2rem auto 0;
+    text-align: left;
+}
+
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+
+.checkbox-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+    background: var(--bg-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.form-inline {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.form-inline input {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--container-bg);
+    color: var(--text-color);
+}
+
+.form-help {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Event Tag Update */
+.event-tag {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-tag:hover {
+    filter: brightness(1.1);
+}
+
+.remind-me {
+    margin-left: 4px;
+    opacity: 0.7;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 @media (max-width: 600px) {
-    .number { width: 35px; height: 35px; font-size: 0.9rem; }
-    .generator-section { padding: 1.5rem; }
-    .footer-links { flex-direction: column; align-items: center; gap: 0.5rem; }
+    .notif-banner { flex-direction: column; gap: 1rem; text-align: center; }
+    .form-inline { flex-direction: column; }
 }
