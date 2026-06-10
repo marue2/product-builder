@@ -400,7 +400,7 @@ nav {
     font-size: 1.25rem;
 }
 
-/* Calendar Styling */
+/* Calendar Styling 2.1 */
 .calendar-section {
     background: var(--bg-card);
     padding: 3rem;
@@ -416,26 +416,30 @@ nav {
     gap: 1px;
     border-radius: var(--radius-md);
     overflow: hidden;
+    border: 1px solid var(--border);
 }
 
 .calendar-day-header {
     background: #f1f5f9;
     padding: 1.5rem;
     text-align: center;
-    font-weight: 800;
+    font-weight: 900;
     color: var(--primary);
     font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
 [data-theme="dark"] .calendar-day-header {
     background: #1e293b;
+    color: #f1f5f9;
 }
 
 .calendar-day {
     background: var(--bg-card);
-    min-height: 140px;
-    padding: 1rem;
+    min-height: 160px;
+    padding: 1.2rem;
     position: relative;
+    transition: var(--transition);
 }
 
 .calendar-day.empty {
@@ -443,28 +447,67 @@ nav {
 }
 
 .day-number {
-    font-weight: 800;
-    color: var(--text-muted);
-    font-size: 1rem;
+    font-weight: 900;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    display: block;
 }
 
 .event-tag {
-    margin-top: 0.5rem;
-    padding: 0.4rem 0.6rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: white;
-    cursor: pointer;
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: white !important; /* Force visibility */
+    cursor: pointer !important;
     transition: var(--transition);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 .event-tag:hover {
-    transform: scale(1.02);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: var(--shadow-lg);
     filter: brightness(1.1);
+    z-index: 10;
 }
 
-/* Footer */
+.event-tag.special { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.event-tag.priority-1 { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.event-tag.priority-2 { background: linear-gradient(135deg, #10b981, #059669); }
+.event-tag.unranked { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+.remind-me {
+    cursor: pointer;
+    padding: 2px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.remind-me:hover {
+    transform: scale(1.3);
+}
+
+/* Analysis Card Integration */
+.analysis-card {
+    margin-top: 3rem;
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--primary);
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 footer {
     background: var(--footer-bg);
     color: var(--footer-text);
