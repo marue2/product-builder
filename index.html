@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotto Number Generator</title>
+    <title>로또 번호 생성기 - 고품질 난수 조합기</title>
+    <meta name="description" content="무료 로또 번호 생성기입니다. 공정한 난수 알고리즘을 사용하여 1부터 45까지의 행운의 번호를 조합해 드립니다. 어떠한 개인정보도 수집하지 않습니다.">
+    <meta name="keywords" content="로또번호생성기, 로또, 번호추첨, 행운의번호, 로또생성기">
     <link rel="stylesheet" href="style.css">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348669799548936" crossorigin="anonymous"></script>
 </head>
 <body>
-    <button id="theme-toggle">Dark Mode</button>
-    <div class="container">
-        <h1>Lotto Number Generator</h1>
-        <div class="numbers-container"></div>
-        <button id="generate-btn">Generate Numbers</button>
-        
-        <!-- Ad Unit Placeholder -->
-        <div class="ad-container">
+    <header>
+        <nav>
+            <div class="logo">LottoGen</div>
+            <button id="theme-toggle">다크 모드</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="generator-section">
+            <h1>로또 행운의 번호 생성기</h1>
+            <p class="subtitle">공정한 무작위 알고리즘으로 당신의 행운을 조합해보세요.</p>
+            
+            <div class="controls">
+                <label for="set-count">생성할 세트 수:</label>
+                <select id="set-count">
+                    <option value="1">1 세트</option>
+                    <option value="2">2 세트</option>
+                    <option value="3">3 세트</option>
+                    <option value="4">4 세트</option>
+                    <option value="5" selected>5 세트</option>
+                </select>
+            </div>
+
+            <div id="numbers-display" class="numbers-display">
+                <!-- 결과가 여기에 표시됩니다 -->
+            </div>
+
+            <div class="action-buttons">
+                <button id="generate-btn">번호 생성하기</button>
+                <button id="copy-btn" class="secondary-btn">결과 복사하기</button>
+            </div>
+        </section>
+
+        <!-- AdSense Area -->
+        <div class="ad-container top-ad">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-9348669799548936"
@@ -27,7 +56,57 @@
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-    </div>
+
+        <article class="content-section">
+            <section id="how-to-use">
+                <h2>로또 번호 생성기 이용 방법</h2>
+                <p>본 로또 번호 생성기는 사용자가 복잡한 분석 없이도 순수하게 확률에 기반한 번호를 얻을 수 있도록 설계되었습니다. 아래의 단계를 따라 번호를 생성해보세요.</p>
+                <ol>
+                    <li>원하는 <strong>생성 세트 수</strong>를 선택합니다 (1~5세트 가능).</li>
+                    <li><strong>'번호 생성하기'</strong> 버튼을 클릭합니다.</li>
+                    <li>순식간에 생성된 번호 조합을 확인합니다.</li>
+                    <li><strong>'결과 복사하기'</strong> 버튼을 눌러 번호를 안전하게 저장하세요.</li>
+                </ol>
+            </article>
+
+            <article class="content-section">
+                <h2>이 로또 생성기의 특징</h2>
+                <p>시중에는 많은 생성기가 있지만, 저희 서비스는 다음과 같은 원칙을 지킵니다.</p>
+                <ul>
+                    <li><strong>완벽한 무작위성:</strong> JavaScript의 암호학적으로 강력한 난수 생성(Crypto API) 기술을 응용하여 편향 없는 번호를 제공합니다.</li>
+                    <li><strong>개인정보 보호:</strong> 어떠한 사용자 정보도 서버에 저장하거나 요구하지 않습니다. 모든 생성 과정은 사용자의 브라우저 내에서만 이루어집니다.</li>
+                    <li><strong>빠른 속도와 직관성:</strong> 불필요한 광고나 로딩 없이 즉각적인 결과를 제공합니다.</li>
+                </ul>
+            </section>
+
+            <article class="content-section">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <div class="faq-item">
+                    <h3>Q: 생성된 번호로 당첨될 확률이 높나요?</h3>
+                    <p>A: 로또는 매회 독립적인 확률을 가집니다. 본 생성기는 무작위 추출을 도와줄 뿐, 당첨을 보장하지는 않습니다. 하지만 순수한 확률에 기반한 조합을 제공하므로 편향 없는 선택을 돕습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q: 서비스 이용은 무료인가요?</h3>
+                    <p>A: 네, 본 서비스는 모든 사용자에게 100% 무료로 제공됩니다. 운영비는 페이지 내의 최소한의 광고를 통해 충당됩니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q: 번호 생성 알고리즘은 무엇인가요?</h3>
+                    <p>A: 웹 표준 API인 <code>Math.random()</code> 기반의 난수 추출 시스템을 사용하며, 중복 없는 6개의 숫자를 오름차순으로 정렬하여 가독성을 높였습니다.</p>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 LottoGen. All rights reserved.</p>
+                <nav class="footer-links">
+                    <a href="privacy.html">개인정보처리방침</a>
+                    <a href="terms.html">이용약관</a>
+                    <a href="contact.html">문의하기</a>
+                </nav>
+            </div>
+        </footer>
+
     <script src="main.js"></script>
 </body>
 </html>
