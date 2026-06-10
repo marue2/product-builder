@@ -34,51 +34,80 @@
                 <h2 id="current-month-year">2026년 6월</h2>
                 <button id="next-month">다음 &gt;</button>
             </div>
-<!-- Legend -->
-<div class="calendar-legend">
-    <span class="legend-item"><span class="dot special"></span>특별공급</span>
-    <span class="legend-item"><span class="dot priority-1"></span>1순위</span>
-    <span class="legend-item"><span class="dot priority-2"></span>2순위</span>
-    <span class="legend-item"><span class="dot unranked"></span>무순위/기타</span>
-</div>
 
-<!-- Notification Prompt -->
-<div id="notif-prompt" class="notif-banner">
-    <div class="notif-content">
-        <span class="notif-icon">🔔</span>
-        <p>관심 있는 청약 일정을 놓치지 마세요! 브라우저 알림을 켜고 알림을 받으세요.</p>
-    </div>
-    <button id="enable-notif-btn">알림 받기</button>
-</div>
+            <!-- Legend -->
+            <div class="calendar-legend">
+                <span class="legend-item"><span class="dot special"></span>특별공급</span>
+                <span class="legend-item"><span class="dot priority-1"></span>1순위</span>
+                <span class="legend-item"><span class="dot priority-2"></span>2순위</span>
+                <span class="legend-item"><span class="dot unranked"></span>무순위/기타</span>
+            </div>
 
-<!-- Calendar Grid -->
-<div id="calendar-grid" class="calendar-grid">
-...
-<div class="ad-container">
-...
-</div>
+            <!-- Notification Prompt -->
+            <div id="notif-prompt" class="notif-banner">
+                <div class="notif-content">
+                    <span class="notif-icon">🔔</span>
+                    <p>관심 있는 청약 일정을 놓치지 마세요! 브라우저 알림을 켜고 알림을 받으세요.</p>
+                </div>
+                <button id="enable-notif-btn">알림 받기</button>
+            </div>
 
-<section class="content-section alarmer-section">
-<h2>청약 알리미 신청</h2>
-<p>관심 지역의 신규 분양 소식을 이메일로 가장 먼저 받아보세요.</p>
-<form id="alarmer-form" class="alarmer-form">
-    <div class="form-group">
-        <label>관심 지역 선택</label>
-        <div class="checkbox-group">
-            <label><input type="checkbox" name="region" value="seoul"> 서울</label>
-            <label><input type="checkbox" name="region" value="gyeonggi"> 경기/인천</label>
-            <label><input type="checkbox" name="region" value="others"> 기타 지역</label>
-        </div>
-    </div>
-    <div class="form-inline">
-        <input type="email" id="user-email" placeholder="이메일 주소를 입력하세요" required>
-        <button type="submit" class="primary-btn">신청하기</button>
-    </div>
-    <p class="form-help">계속하시려면 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 간주됩니다.</p>
-</form>
-</section>
+            <!-- Calendar Grid -->
+            <div id="calendar-grid" class="calendar-grid">
+                <!-- JS에서 생성됨 -->
+            </div>
 
-<article class="content-section">
+            <!-- Analysis Detail Card -->
+            <div id="analysis-card" class="analysis-card" style="display: none;">
+                <div class="analysis-header">
+                    <h3 id="analysis-title">단지 이름</h3>
+                    <span id="analysis-score" class="score-badge">S</span>
+                </div>
+                <div class="analysis-body">
+                    <div class="analysis-stat">
+                        <span class="label">예상 분양가</span>
+                        <span id="analysis-price" class="value">0억</span>
+                    </div>
+                    <div class="analysis-stat">
+                        <span class="label">주변 시세</span>
+                        <span id="analysis-market" class="value">0억</span>
+                    </div>
+                    <div class="analysis-stat profit">
+                        <span class="label">예상 시세차익</span>
+                        <span id="analysis-profit" class="value highlight">0억</span>
+                    </div>
+                    <p id="analysis-text" class="analysis-text">단지 상세 분석 내용이 여기에 표시됩니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profit Calculator Section -->
+        <section class="content-section calculator-section">
+            <h2>💰 청약 시세차익 계산기</h2>
+            <p>분양가와 주변 시세를 입력하여 예상 수익과 매력도를 직접 계산해보세요.</p>
+            <div class="calc-container">
+                <div class="input-group">
+                    <label>예상 분양가 (억원)</label>
+                    <input type="number" id="calc-price" step="0.1" placeholder="예: 8.5">
+                </div>
+                <div class="input-group">
+                    <label>주변 단지 시세 (억원)</label>
+                    <input type="number" id="calc-market" step="0.1" placeholder="예: 12.0">
+                </div>
+                <button id="calc-btn" class="primary-btn">분석하기</button>
+            </div>
+            <div id="calc-result" class="calc-result" style="display: none;">
+                <div class="result-main">
+                    <h4>예상 수익: <span id="result-profit">0</span>억원</h4>
+                    <p>수익률: <span id="result-ratio">0</span>%</p>
+                </div>
+                <div class="result-grade">
+                    매력도 등급: <span id="result-grade-tag" class="grade-tag">우수</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="ad-container">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-9348669799548936"
@@ -89,6 +118,26 @@
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
+
+        <section class="content-section alarmer-section">
+            <h2>청약 알리미 신청</h2>
+            <p>관심 지역의 신규 분양 소식을 이메일로 가장 먼저 받아보세요.</p>
+            <form id="alarmer-form" class="alarmer-form">
+                <div class="form-group">
+                    <label>관심 지역 선택</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="region" value="seoul"> 서울</label>
+                        <label><input type="checkbox" name="region" value="gyeonggi"> 경기/인천</label>
+                        <label><input type="checkbox" name="region" value="others"> 기타 지역</label>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <input type="email" id="user-email" placeholder="이메일 주소를 입력하세요" required>
+                    <button type="submit" class="primary-btn">신청하기</button>
+                </div>
+                <p class="form-help">계속하시려면 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 간주됩니다.</p>
+            </form>
+        </section>
 
         <article class="content-section">
             <h2>청약 신청 시 유의사항</h2>
