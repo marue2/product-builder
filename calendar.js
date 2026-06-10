@@ -3,8 +3,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const monthYearDisplay = document.getElementById('current-month-year');
     const prevBtn = document.getElementById('prev-month');
     const nextBtn = document.getElementById('next-month');
+    const alarmerForm = document.getElementById('alarmer-form');
+    const enableNotifBtn = document.getElementById('enable-notif-btn');
+    const notifPrompt = document.getElementById('notif-prompt');
 
     let currentDate = new Date(2026, 5, 1); // 2026년 6월 기준
+    let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+
+    // Notification Logic
+    function initNotifications() {
+        if (!("Notification" in window)) {
+            if (notifPrompt) notifPrompt.style.display = 'none';
+            return;
+        }
+
+        if (Notification.permission === "granted") {
+            if (notifPrompt) notifPrompt.style.display = 'none';
+        }
+
+        if (enableNotifBtn) {
+            enableNotifBtn.addEventListener('click', async () => {
+                const permission = await Notification.requestPermission();
+                if (permission === "granted") {
+                    alert("알림 설정이 완료되었습니다!");
+                    if (notifPrompt) notifPrompt.style.display = 'none';
+                }
+            });
+        }
+    }
+
+    function toggleReminder(title, date) {
+        const id = `${title}-${date}`;
+        if (reminders.includes(id)) {
+            reminders = reminders.filter(r => r !== id);
+        } else {
+            reminders.push(id);
+            if (Notification.permission === "granted") {
+                new Notification("알림 예약 완료", {
+                    body: `${title} 청약 일전에 알림을 보내드립니다.`,
+                });
+            }
+        }
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+        renderCalendar();
+    }
 
     function renderCalendar() {
         calendarGrid.innerHTML = '';
@@ -47,9 +89,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const events = SUBSCRIPTION_DATA.filter(e => e.date === dateStr);
 
             events.forEach(event => {
+                const id = `${event.title}-${dateStr}`;
+                const isReminded = reminders.includes(id);
+
                 const eventTag = document.createElement('div');
                 eventTag.classList.add('event-tag', event.type);
-                eventTag.textContent = event.title;
+                eventTag.innerHTML = `
+                    <span>${event.title}</span>
+                    <span class="remind-me">${isReminded ? '🔔' : '🔕'}</span>
+                `;
+                
+                eventTag.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleReminder(event.title, dateStr);
+                });
+
                 dayCell.appendChild(eventTag);
             });
 
@@ -71,5 +125,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Alarmer Form Handling
+    if (alarmerForm) {
+        alarmerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('user-email').value;
+            alert(`${email}님, 청약 알리미 신청이 완료되었습니다! (서버 연결 후 실제 발송이 시작됩니다)`);
+            alarmerForm.reset();
+        });
+    }
+
+    initNotifications();
     renderCalendar();
 });
