@@ -2,35 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const numbersDisplay = document.getElementById('numbers-display');
     const generateBtn = document.getElementById('generate-btn');
     const copyBtn = document.getElementById('copy-btn');
-    const themeToggle = document.getElementById('theme-toggle');
     const setCountSelect = document.getElementById('set-count');
 
-    // Theme Management
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeButton(savedTheme);
-    }
-
-    function updateThemeButton(theme) {
-        if (themeToggle) {
-            themeToggle.textContent = theme === 'dark' ? '라이트 모드' : '다크 모드';
-        }
-    }
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeButton(newTheme);
-        });
-    }
-
     // Lotto Generation Logic
-    function getSecureRandom(max) {
+...
         if (window.crypto && window.crypto.getRandomValues) {
             const array = new Uint32Array(1);
             window.crypto.getRandomValues(array);
