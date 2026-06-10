@@ -83,26 +83,45 @@
 
         <!-- Profit Calculator Section -->
         <section class="content-section calculator-section">
-            <h2>💰 청약 시세차익 계산기</h2>
-            <p>분양가와 주변 시세를 입력하여 예상 수익과 매력도를 직접 계산해보세요.</p>
+            <h2>🔍 스마트 시세차익 자동 검색기</h2>
+            <p>분양 단지명을 검색하면 현재 시세를 바탕으로 기대 수익을 자동 계산합니다.</p>
             <div class="calc-container">
-                <div class="input-group">
-                    <label>예상 분양가 (억원)</label>
-                    <input type="number" id="calc-price" step="0.1" placeholder="예: 8.5">
+                <div class="input-group search-group">
+                    <label>분양 단지명 검색</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="complex-search" list="complex-list" placeholder="예: 강남 에코델타시티">
+                        <datalist id="complex-list">
+                            <!-- JS에서 데이터베이스 기반으로 채워짐 -->
+                        </datalist>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>주변 단지 시세 (억원)</label>
-                    <input type="number" id="calc-market" step="0.1" placeholder="예: 12.0">
-                </div>
-                <button id="calc-btn" class="primary-btn">분석하기</button>
+                <button id="search-calc-btn" class="primary-btn">자동 분석 실행</button>
             </div>
+            
+            <div id="calc-loader" class="loader" style="display: none;">데이터 분석 중...</div>
+
             <div id="calc-result" class="calc-result" style="display: none;">
-                <div class="result-main">
-                    <h4>예상 수익: <span id="result-profit">0</span>억원</h4>
-                    <p>수익률: <span id="result-ratio">0</span>%</p>
+                <div class="result-info">
+                    <h3 id="res-name">단지명</h3>
+                    <p id="res-region">지역 정보</p>
                 </div>
-                <div class="result-grade">
-                    매력도 등급: <span id="result-grade-tag" class="grade-tag">우수</span>
+                <div class="result-stats">
+                    <div class="stat">
+                        <span>예상 분양가</span>
+                        <strong id="res-price">0억</strong>
+                    </div>
+                    <div class="stat">
+                        <span>주변 시세</span>
+                        <strong id="res-market">0억</strong>
+                    </div>
+                    <div class="stat highlight">
+                        <span>예상 수익</span>
+                        <strong id="res-profit">0억</strong>
+                    </div>
+                </div>
+                <div class="result-footer">
+                    <span id="res-grade" class="grade-tag">등급</span>
+                    <a id="naver-link" href="#" target="_blank" class="external-link">네이버 부동산에서 확인 ↗</a>
                 </div>
             </div>
         </section>

@@ -384,34 +384,58 @@ button:hover {
     color: var(--text-color);
     width: 150px;
 }
+/* Calculator Search */
+.search-group { width: 100%; max-width: 400px; }
+.search-input-wrapper { position: relative; width: 100%; }
+#complex-search { width: 100% !important; padding: 1rem !important; font-size: 1.1rem !important; }
+
+.loader {
+    text-align: center;
+    padding: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
 
 .calc-result {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--container-bg);
-    border-radius: 0.8rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.result-info { border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+.result-info h3 { margin: 0; font-size: 1.4rem; }
+.result-info p { margin: 0.3rem 0 0; color: var(--secondary-color); }
+
+.result-stats {
     display: flex;
     justify-content: space-around;
+    gap: 1rem;
+    text-align: center;
+}
+
+.result-stats .stat { display: flex; flex-direction: column; gap: 0.5rem; }
+.result-stats .stat span { font-size: 0.85rem; color: var(--secondary-color); }
+.result-stats .stat strong { font-size: 1.3rem; }
+.result-stats .stat.highlight strong { color: #e74c3c; font-size: 1.6rem; }
+
+.result-footer {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-color);
 }
 
-.result-main h4 { margin: 0; font-size: 1.2rem; }
-.result-main p { margin: 0.5rem 0 0; color: var(--secondary-color); }
-
-.grade-tag {
-    padding: 0.3rem 1rem;
-    border-radius: 5px;
-    color: white;
+.external-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
     font-weight: bold;
-    background-color: #f1c40f;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+.external-link:hover { text-decoration: underline; }
 
+.notif-banner {
 .notif-content { display: flex; align-items: center; gap: 0.8rem; }
 .notif-icon { font-size: 1.5rem; }
 .notif-banner p { margin: 0; font-weight: 600; font-size: 0.95rem; }

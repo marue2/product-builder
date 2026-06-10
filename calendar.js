@@ -16,17 +16,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const analysisProfit = document.getElementById('analysis-profit');
     const analysisText = document.getElementById('analysis-text');
 
-    // Calculator Elements
-    const calcPrice = document.getElementById('calc-price');
-    const calcMarket = document.getElementById('calc-market');
-    const calcBtn = document.getElementById('calc-btn');
+    // Search Calculator Elements
+    const complexSearch = document.getElementById('complex-search');
+    const complexList = document.getElementById('complex-list');
+    const searchCalcBtn = document.getElementById('search-calc-btn');
+    const calcLoader = document.getElementById('calc-loader');
     const calcResult = document.getElementById('calc-result');
-    const resultProfit = document.getElementById('result-profit');
-    const resultRatio = document.getElementById('result-ratio');
-    const resultGradeTag = document.getElementById('result-grade-tag');
+    
+    const resName = document.getElementById('res-name');
+    const resRegion = document.getElementById('res-region');
+    const resPrice = document.getElementById('res-price');
+    const resMarket = document.getElementById('res-market');
+    const resProfit = document.getElementById('res-profit');
+    const resGrade = document.getElementById('res-grade');
+    const naverLink = document.getElementById('naver-link');
 
     let currentDate = new Date(2026, 5, 1); // 2026년 6월 기준
     let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+
+    // Datalist 채우기
+    function initSearchList() {
+        if (complexList && typeof MARKET_DATABASE !== 'undefined') {
+            MARKET_DATABASE.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.name;
+                complexList.appendChild(option);
+            });
+        }
+    }
 
     function initNotifications() {
         if (!("Notification" in window)) {
@@ -127,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     showAnalysis(event);
                 });
 
-                // 리마인드 아이콘 클릭 시에만 토글
                 const remindBtn = eventTag.querySelector('.remind-me');
                 remindBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -141,33 +157,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Calculator Logic
-    if (calcBtn) {
-        calcBtn.addEventListener('click', () => {
-            const p = parseFloat(calcPrice.value);
-            const m = parseFloat(calcMarket.value);
-
-            if (isNaN(p) || isNaN(m)) {
-                alert('가격을 입력해주세요.');
+    // Automatic Search Calculator Logic
+    if (searchCalcBtn) {
+        searchCalcBtn.addEventListener('click', () => {
+            const keyword = complexSearch.value.trim();
+            if (!keyword) {
+                alert('단지명을 입력하거나 목록에서 선택해주세요.');
                 return;
             }
 
-            const profit = m - p;
-            const ratio = (profit / p) * 100;
+            // 검색 중 효과
+            calcResult.style.display = 'none';
+            calcLoader.style.display = 'block';
 
-            resultProfit.textContent = profit.toFixed(1);
-            resultRatio.textContent = ratio.toFixed(0);
+            setTimeout(() => {
+                const found = MARKET_DATABASE.find(item => item.name.includes(keyword));
+                calcLoader.style.display = 'none';
 
-            let grade = '보통';
-            let color = '#95a5a6';
+                if (found) {
+                    resName.textContent = found.name;
+                    resRegion.textContent = found.region;
+                    resPrice.textContent = (found.price / 10000).toFixed(1) + '억';
+                    resMarket.textContent = (found.market / 10000).toFixed(1) + '억';
+                    
+                    const profit = (found.market - found.price) / 10000;
+                    resProfit.textContent = profit.toFixed(1) + '억';
 
-            if (ratio >= 50) { grade = '매우 높음 (S)'; color = '#e74c3c'; }
-            else if (ratio >= 30) { grade = '높음 (A)'; color = '#f39c12'; }
-            else if (ratio >= 15) { grade = '양호 (B)'; color = '#2ecc71'; }
+                    // 등급 계산
+                    const ratio = ((found.market - found.price) / found.price) * 100;
+                    let grade = '보통';
+                    let color = '#95a5a6';
+                    if (ratio >= 50) { grade = '매우 높음 (S)'; color = '#e74c3c'; }
+                    else if (ratio >= 30) { grade = '높음 (A)'; color = '#f39c12'; }
+                    else if (ratio >= 15) { grade = '양호 (B)'; color = '#2ecc71'; }
 
-            resultGradeTag.textContent = grade;
-            resultGradeTag.style.backgroundColor = color;
-            calcResult.style.display = 'flex';
+                    resGrade.textContent = grade;
+                    resGrade.style.backgroundColor = color;
+                    
+                    naverLink.href = `https://land.naver.com/search/search.naver?query=${encodeURIComponent(found.name)}`;
+                    calcResult.style.display = 'flex';
+                } else {
+                    alert('데이터를 찾을 수 없습니다. 정확한 단지명을 입력해주세요.');
+                }
+            }, 800); // 0.8초 딜레이로 검색 시뮬레이션
         });
     }
 
@@ -194,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    initSearchList();
     initNotifications();
     renderCalendar();
 });
