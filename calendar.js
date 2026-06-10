@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const analysisPrice = document.getElementById('analysis-price');
     const analysisMarket = document.getElementById('analysis-market');
     const analysisProfit = document.getElementById('analysis-profit');
+    const analysisUnits = document.getElementById('analysis-units');
+    const analysisStructure = document.getElementById('analysis-structure');
+    const analysisCommunity = document.getElementById('analysis-community');
+    const analysisSchool = document.getElementById('analysis-school');
+    const analysisTransport = document.getElementById('analysis-transport');
     const analysisText = document.getElementById('analysis-text');
 
     // Search Calculator Elements
@@ -34,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDate = new Date(2026, 5, 1); // 2026년 6월 기준
     let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
 
-    // Datalist 채우기
     function initSearchList() {
         if (complexList && typeof MARKET_DATABASE !== 'undefined') {
             MARKET_DATABASE.forEach(item => {
@@ -86,6 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
         analysisPrice.textContent = (event.price / 10000).toFixed(1) + '억';
         analysisMarket.textContent = (event.marketPrice / 10000).toFixed(1) + '억';
         analysisProfit.textContent = ((event.marketPrice - event.price) / 10000).toFixed(1) + '억';
+        
+        // Detailed fields
+        analysisUnits.textContent = event.units || '-';
+        analysisStructure.textContent = event.structure || '-';
+        analysisCommunity.textContent = event.community || '-';
+        analysisSchool.textContent = event.school || '-';
+        analysisTransport.textContent = event.transport || '-';
         analysisText.textContent = event.analysis;
 
         analysisCard.style.display = 'block';
@@ -157,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Automatic Search Calculator Logic
     if (searchCalcBtn) {
         searchCalcBtn.addEventListener('click', () => {
             const keyword = complexSearch.value.trim();
@@ -166,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 검색 중 효과
             calcResult.style.display = 'none';
             calcLoader.style.display = 'block';
 
@@ -183,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const profit = (found.market - found.price) / 10000;
                     resProfit.textContent = profit.toFixed(1) + '억';
 
-                    // 등급 계산
                     const ratio = ((found.market - found.price) / found.price) * 100;
                     let grade = '보통';
                     let color = '#95a5a6';
@@ -199,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     alert('데이터를 찾을 수 없습니다. 정확한 단지명을 입력해주세요.');
                 }
-            }, 800); // 0.8초 딜레이로 검색 시뮬레이션
+            }, 800);
         });
     }
 
